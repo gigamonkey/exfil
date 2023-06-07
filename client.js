@@ -11,13 +11,13 @@ const saveData = (blob, name) => {
   fetch(`${server}/save`, { method: 'POST', body })
     .then(resp => {
       if (resp.ok) {
-        console.log('Saved.');
+        console.log(`Saved ${name}`);
       } else {
-        console.log('Not Ok.');
+        console.error(`Problem saving ${name}.`);
       }
     })
     .catch((err) => {
-      console.error(`Problem: ${err}`);
+      console.error(`Problem saving ${name}: ${err}`);
     });
 };
 
@@ -34,5 +34,14 @@ const batchSave = (args, fn) => {
 const saveZip = async (url) => {
   const name = new URL(url).pathname.substring(2).replaceAll('/', '-') + '.zip';
   const blob = await fetch(`${url}.zip`).then(r => r.blob());
-  return saveData(blob, name);
+  return await saveData(blob, name);
+};
+
+
+/*
+ * Save a bunch of Repls given an array of the Repls' URLs.
+ */
+const saveZips = async (urls) => {
+  await batchSave(urls, saveZip);
+  console.log(`Saved ${urls.length} zips.`);
 };
