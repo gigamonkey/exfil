@@ -22,8 +22,8 @@ Then to run the server:
 node server.js
 ```
 
-To download Replit zips, you can use the `saveZip` function to save one Repl and
-`saveZips` to save a bunch, from an array of Repls.
+To download, for instance, Replit zips, you can use the `saveZip` function to
+save one Repl and `saveZips` to save a bunch, from an array of Repls.
 
 ```
 const urls = [
